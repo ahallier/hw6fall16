@@ -1,5 +1,5 @@
 class MoviesController < ApplicationController
-
+  require 'pp'
   def movie_params
     params.require(:movie).permit(:title, :rating, :description, :release_date)
   end
@@ -62,7 +62,23 @@ class MoviesController < ApplicationController
   end
   
   def search_tmdb
-    @movies=Movie.find_in_tmdb(params[:search_terms])
+    @matching_movies=Movie.find_in_tmdb(params[:search_terms])
+    print @matching_movies
+  end
+  
+  def add_tmdb
+    ids = params[:tmdb_movies]
+    if(ids)
+      pp ids
+      pp "andrea"
+      ids.each_key do |id|
+        Movie.create_from_tmdb(id)
+      end
+      flash[:notice] = "Movies successfully added to Rotten Potatoes"
+    else
+      flash[:notice] = "No movies added to Rotten Potatoes"
+    end
+    redirect_to movies_path
   end
 
 end
