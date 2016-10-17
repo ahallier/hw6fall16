@@ -34,10 +34,12 @@ class Movie::InvalidKeyError < StandardError ; end
     begin
       @string = string
       Tmdb::Api.key("f4702b08c0ac6ea5b51425788bb26562")
-      tbdb_movies = Tmdb::Movie.find(string)
+      tmdb_movies = Tmdb::Movie.find(string)
       @returnArray = []
-      tbdb_movies.each do |movie|
-        @returnArray.push(Hash[:id => movie.id, :title => movie.title, :rating => get_rating(Tmdb::Movie.releases(movie.id)), :release_date => movie.release_date])
+      if(tmdb_movies)
+        tmdb_movies.each do |movie|
+          @returnArray.push(Hash[:id => movie.id, :title => movie.title, :rating => get_rating(Tmdb::Movie.releases(movie.id)), :release_date => movie.release_date])
+        end
       end
       return @returnArray
     rescue Tmdb::InvalidApiKeyError
