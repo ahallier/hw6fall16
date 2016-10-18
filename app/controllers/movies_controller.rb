@@ -63,7 +63,7 @@ class MoviesController < ApplicationController
   
   def search_tmdb
     @string = params[:search_terms]
-    if (@string=="")
+    if (@string=="" || @string == nil)
       flash[:notice] = "Invalid search term"
       redirect_to movies_path
     else

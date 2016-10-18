@@ -19,7 +19,7 @@ class Movie::InvalidKeyError < StandardError ; end
   
   def Movie.get_rating(releases)
     countries = releases['countries']
-    rating = "PG"
+    rating = ""
     if (countries)
       countries.each do |country|
         if (country['iso_3166_1'] == 'US' and country['certification'] != "")
