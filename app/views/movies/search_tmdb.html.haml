@@ -1,5 +1,5 @@
 
-%h1 The following movies containing #{@string} were found on TMDb
+%h1 The following movies containing '#{@string}' were found on TMDb
 
 = form_tag movies_add_tmdb_path, :method => :post
 %table#movies
@@ -15,7 +15,7 @@
         %td= movie[:title] 
         %td= movie[:rating] 
         %td= movie[:release_date] 
-        %td= check_box_tag "tmdb_movies[#{movie[:id]}]" id:	"checkbox_#{movie[:id]}"
+        %td= check_box_tag "tmdb_movies[#{movie[:id]}]", 1, nil, :id => "checkbox_#{movie[:id]}"
 = submit_tag "Add Selected Movies", id:	"movies_button"
 
 = link_to 'Return to Movie List', movies_path
